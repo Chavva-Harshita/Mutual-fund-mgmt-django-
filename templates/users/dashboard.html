@@ -2,17 +2,113 @@
 
 {% block content %}
 
-<h2>Dashboard</h2>
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+        color: white;
+    }
 
-<p>Welcome, {{ user.username }}!</p>
-<p>You are successfully logged in</p>
+    .dashboard-container {
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-{% if user.role == 'investor' %}
-    <p>You can explore and compare funds.</p>
+    .dashboard-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        padding: 50px;
+        border-radius: 20px;
+        width: 600px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(0, 255, 200, 0.2);
+    }
 
-{% endif %}
-{% elif user.role == 'user' %}
-    <p>You can invest money and analyze funds.</p>
-{% endif %}
+    .welcome-text {
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: #00ffc8;
+    }
+
+    .role-badge {
+        display: inline-block;
+        padding: 6px 15px;
+        border-radius: 20px;
+        background: #00ffc8;
+        color: black;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .action-btn {
+        padding: 10px 20px;
+        border-radius: 30px;
+        margin: 10px;
+        font-weight: 600;
+        border: none;
+        transition: 0.3s ease;
+    }
+
+    .btn-primary-custom {
+        background: #00ffc8;
+        color: black;
+    }
+
+    .btn-primary-custom:hover {
+        background: #00c89e;
+        transform: scale(1.05);
+    }
+
+    .btn-outline-custom {
+        border: 2px solid #00ffc8;
+        background: transparent;
+        color: #00ffc8;
+    }
+
+    .btn-outline-custom:hover {
+        background: #00ffc8;
+        color: black;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-card">
+
+        <div class="welcome-text">
+            Welcome, {{ user.username }} 👋
+        </div>
+
+        <div class="role-badge">
+            Role: {{ user.role|default:"User" }}
+        </div>
+
+        <p>You are successfully logged in.</p>
+
+        {% if user.role == 'investor' %}
+            <p>You can explore and compare mutual funds.</p>
+
+            <a href="/funds/" class="action-btn btn-primary-custom">
+                Explore Funds
+            </a>
+
+        {% elif user.role == 'user' %}
+            <p>You can invest money and analyze fund performance.</p>
+
+            <a href="/funds/" class="action-btn btn-primary-custom">
+                Invest Now
+            </a>
+
+        {% else %}
+            <p>Start exploring mutual funds today.</p>
+
+            <a href="/funds/" class="action-btn btn-outline-custom">
+                View Funds
+            </a>
+        {% endif %}
+
+    </div>
+</div>
 
 {% endblock %}

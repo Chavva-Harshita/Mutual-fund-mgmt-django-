@@ -1,16 +1,47 @@
-
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
-    return render(request, 'users/login.html')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
-def register_view(request):
-    return render(request, 'users/register.html')
+        user = authenticate(request, username=username, password=password)
 
+        if user is not None:
+            login(request, user)
+            return redirect("dashboard")
+        else:
+            messages.error(request, "Invalid username or password")
+
+    return render(request, "users/login.html")
+
+@login_required
 def dashboard(request):
     return render(request, 'users/dashboard.html')
+from django.contrib.auth.models import User
+
+def register_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+        else:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
+            user.save()
+
+            return redirect("login")   # 👈 Register ke baad login page
+
+    return render(request, "users/register.html")

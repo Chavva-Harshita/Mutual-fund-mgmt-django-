@@ -1,13 +1,90 @@
-{% extends 'base.html' %}
+{{% extends 'base.html' %}
 
 {% block content %}
 
-<div class="text-center">
-    <h1>Welcome to Mutual Fund Awareness Platform</h1>
-    <p>Compare funds, analyze risks, and invest smartly.</p>
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    }
 
-    <a href="/funds/" class="btn btn-primary m-2">Explore Funds</a>
-    <a href="/education/" class="btn btn-success m-2">Learn About Mutual Funds</a>
+    .hero-section {
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+    }
+
+    .hero-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0, 255, 200, 0.2);
+        max-width: 700px;
+    }
+
+    .hero-title {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #00ffc8;
+    }
+
+    .hero-subtitle {
+        font-size: 18px;
+        color: #ccc;
+        margin-bottom: 35px;
+    }
+
+    .btn-custom {
+        padding: 12px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: 0.3s ease;
+        margin: 10px;
+    }
+
+    .btn-primary-custom {
+        background-color: #00ffc8;
+        color: black;
+        border: none;
+    }
+
+    .btn-primary-custom:hover {
+        background-color: #00c89e;
+        transform: scale(1.05);
+    }
+
+    .btn-secondary-custom {
+        background-color: transparent;
+        border: 2px solid #00ffc8;
+        color: #00ffc8;
+    }
+
+    .btn-secondary-custom:hover {
+        background-color: #00ffc8;
+        color: black;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-card">
+        <h1 class="hero-title">Mutual Fund Awareness Platform</h1>
+        <p class="hero-subtitle">
+            Compare funds, analyze risks, track performance, and invest smartly with confidence.
+        </p>
+
+        <a href="/funds/" class="btn btn-custom btn-primary-custom">
+            🚀 Explore Funds
+        </a>
+
+        <a href="/education/" class="btn btn-custom btn-secondary-custom">
+            📘 Learn About Mutual Funds
+        </a>
+    </div>
 </div>
 
 {% endblock %}
